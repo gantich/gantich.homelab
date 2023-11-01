@@ -1,0 +1,33 @@
+# Hardware acceleration users for Intel Quicksync will need to mount their /dev/dri video device inside of the container by passing the following command when running or creating the container:
+#
+# --device=/dev/dri:/dev/dri
+#
+# We will automatically ensure the abc user inside of the container has the proper permissions to access this device.
+#
+# To enable the OpenCL based DV, HDR10 and HLG tone-mapping, please refer to the OpenCL-Intel mod from here:
+#
+# https://mods.linuxserver.io/?mod=jellyfin
+
+---
+version: "2.1"
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+      - JELLYFIN_PublishedServerUrl=$SERVER_IP #optional
+    volumes:
+      - $DOCKERDIR/jellyfin:/config
+      - $SERIESDIR:/data/tvshows
+      - $MOVIESDIR:/data/movies
+    ports:
+      - 8096:8096
+      - 8920:8920 #optional
+      - 7359:7359/udp #optional
+      - 1900:1900/udp #optional
+    devices:
+      - /dev/dri:/dev/dri # for harware transcoding
+    restart: unless-stopped
