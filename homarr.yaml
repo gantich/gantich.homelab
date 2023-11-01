@@ -9,4 +9,4 @@ services:
       - ./homarr/configs:/app/data/configs
       - ./homarr/icons:/app/public/icons
     ports:
-      - '7575:7575'
+      - 7575:7575

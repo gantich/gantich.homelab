@@ -111,4 +111,4 @@ services:
       - $DOCKERDIR/homarr:/app/data/configs
       - $DOCKERDIR/homarr/icons:/app/public/icons
     ports:
-      - '7575:7575'
+      - 7575:7575
