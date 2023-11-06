@@ -52,14 +52,16 @@ services:
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
+    network_mode: "service:gluetun"
     environment:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
     volumes:
       - $DOCKERDIR/prowlarr:/config
-    ports:
-      - 9696:9696
+    # Exposed through gluetun port 9696
+    # ports:
+    #   - 9696:9696
     restart: unless-stopped
   radarr:
     image: lscr.io/linuxserver/radarr:latest
@@ -121,6 +123,7 @@ services:
         - /dev/net/tun:/dev/net/tun
       ports:
         - 8080:8080 # Exposing qBittorrent through Docker Host LAN IP
+        - 9696:9696 # Exposing Prowlarr through Docker Host LAN IP
       volumes:
         - $DOCKERDIR/gluetun:/gluetun
       environment:
