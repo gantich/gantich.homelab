@@ -112,6 +112,25 @@ services:
       - $DOCKERDIR/homarr/icons:/app/public/icons
     ports:
       - 7575:7575
+  gluetun:
+      image: qmcgaw/gluetun
+      container_name: gluetun
+      cap_add:
+        - NET_ADMIN
+      devices:
+        - /dev/net/tun:/dev/net/tun
+      ports:
+        - 8080:8080 # Exposing qBittorrent through Docker Host LAN IP
+      volumes:
+        - $DOCKERDIR/gluetun:/gluetun
+      environment:
+        # See https://github.com/qdm12/gluetun-wiki/tree/main/setup#setup
+        - VPN_SERVICE_PROVIDER=mullvad
+        - VPN_TYPE=wireguard
+        - WIREGUARD_PRIVATE_KEY=$MULLVAD_PRIVATE_KEY
+        - WIREGUARD_ADDRESSES=$MULLVAD_ADDRESSES
+        - TZ=$TZ
+        - SERVER_COUNTRIES=$MULLVAD_COUNTRIES
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
@@ -129,22 +148,3 @@ services:
     #   - 6881:6881
     #   - 6881:6881/udp
     restart: unless-stopped
-  gluetun:
-    image: qmcgaw/gluetun
-    container_name: gluetun
-    cap_add:
-      - NET_ADMIN
-    devices:
-      - /dev/net/tun:/dev/net/tun
-    ports:
-      - 8081:8080 # Exposing qBittorrent through Docker Host LAN IP
-    volumes:
-      - $DOCKERDIR/gluetun:/gluetun
-    environment:
-      # See https://github.com/qdm12/gluetun-wiki/tree/main/setup#setup
-      - VPN_SERVICE_PROVIDER=mullvad
-      - VPN_TYPE=wireguard
-      - WIREGUARD_PRIVATE_KEY=$MULLVAD_PRIVATE_KEY
-      - WIREGUARD_ADDRESSES=$MULLVAD_ADDRESSES
-      - TZ=$TZ
-      - SERVER_COUNTRIES=$MULLVAD_COUNTRIES
