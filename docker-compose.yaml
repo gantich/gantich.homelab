@@ -137,14 +137,14 @@ services:
     devices:
       - /dev/net/tun:/dev/net/tun
     ports:
-      - "8081:8080" # Exposing qBittorrent through Docker Host LAN IP
+      - 8081:8080 # Exposing qBittorrent through Docker Host LAN IP
     volumes:
       - $DOCKERDIR/gluetun:/gluetun
     environment:
       # See https://github.com/qdm12/gluetun-wiki/tree/main/setup#setup
       - VPN_SERVICE_PROVIDER=mullvad
       - VPN_TYPE=wireguard
-      - WIREGUARD_PRIVATE_KEY=$MULLVAD_ID
+      - WIREGUARD_PRIVATE_KEY=$MULLVAD_PRIVATE_KEY
       - WIREGUARD_ADDRESSES=$MULLVAD_ADDRESSES
       - TZ=$TZ
       - SERVER_COUNTRIES=$MULLVAD_COUNTRIES
