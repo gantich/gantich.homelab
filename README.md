@@ -75,7 +75,6 @@ qbittorrent:
       - /etc/localtime:/etc/localtime:ro
     cap_add:
       - NET_ADMIN
-
     privileged: true
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
