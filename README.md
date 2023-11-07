@@ -112,8 +112,8 @@ How to proceed:
 2. Enlarge the partition(s) in the virtual disk 
     - `dmesg | grep sda`
     - `fdisk -l /dev/sda | grep ^/dev`
-        ```bash
-        parted /dev/vda
+        ```console
+        foo@bar:~$ parted /dev/vda
         (parted) print
         Warning: Not all of the space available to /dev/vda appears to be used, you can
         fix the GPT to use all of the space (an extra 268435456 blocks) or continue
