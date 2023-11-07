@@ -50,7 +50,7 @@ For config related issues go to https://hub.docker.com/r/binhex/arch-qbittorrent
 
 Proceeded as follows:
 - Add service to stack, with config:
-```docker-compose
+```yaml
 qbittorrent:
     container_name: qbittorrentvpn
     image: binhex/arch-qbittorrentvpn
