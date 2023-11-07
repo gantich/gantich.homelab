@@ -109,10 +109,11 @@ Links:
 How to proceed:
 1. Resizing guest disk using gui
     - Select your VM from the list > Hardware > Hard Disk > Disk Action > Resize.
-2. Enlarge the partition(s) in the virtual disk 
-    - `dmesg | grep sda`
-    - `fdisk -l /dev/sda | grep ^/dev`
+2. Enlarge the partition(s) in the virtual disk
+
         ```console
+        foo@bar:~$ dmesg | grep sda
+        foo@bar:~$ fdisk -l /dev/sda | grep ^/dev
         foo@bar:~$ parted /dev/vda
         (parted) print
         Warning: Not all of the space available to /dev/vda appears to be used, you can
@@ -123,14 +124,14 @@ How to proceed:
         (parted) resizepart 3 100%
         (parted) quit
         ```
-3. Enlarge the filesystem(s) in the partitions on the virtual disk
-   ```bash
+4. Enlarge the filesystem(s) in the partitions on the virtual disk
+   ```console
    # Increase the Physical Volume (pv) to max size
-   pvresize /dev/sda3
+   foo@bar:~$ pvresize /dev/sda3
     
    # Expand the Logical Volume (LV) to max size to match
-   lvresize -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv
+   foo@bar:~$ lvresize -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv
     
    # Expand the filesystem itself
-   resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
+   foo@bar:~$ resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
    ```
