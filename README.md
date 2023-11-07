@@ -92,3 +92,9 @@ Finally, in order to use Privoxy with certain ISP-blocked trackers, go to Prowla
 Then proceed to go to the desired indexer in Prowlarr > Indexers, edit (left-most wrench icon) and add
 
 - tags: privoxy
+
+### Testing if vpn works
+Access qbittorrent console:
+- `sudo docker exec -ti <qbittorrent> /bin/bash`
+- `curl ifconfig.io`
+- 
