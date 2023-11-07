@@ -34,7 +34,7 @@ Keep the .env file secure and do not share it with others, as it may contain sen
 Double-check that the paths and values are accurate for your system.
 This should guide users on how to find their PUID and PGID values using the id command. Let me know if there's anything else you'd like to add or modify!
 
-## qBitTorrent + Wireguard VPN
+## qBitTorrent + Wireguard VPN
 
 After trying:
 - lscr.io/linuxserver/qbittorrent + qmcgaw/gluetun (Unable to connect Prowlarr with Sonarr after passing Prowlarr through gluetun)
