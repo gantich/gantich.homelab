@@ -18,6 +18,7 @@ SERIESDIR: Path to the directory containing TV series.
 MUSICDIR: Path to the directory containing music.
 BOOKSDIR: Path to the directory containing books.
 ```
+---
 
 ## Getting PUID and PGID Values
 To find your PUID (User ID) and PGID (Group ID), open a terminal and run the following command:
@@ -33,6 +34,7 @@ Important Notes
 Keep the .env file secure and do not share it with others, as it may contain sensitive information.
 Double-check that the paths and values are accurate for your system.
 This should guide users on how to find their PUID and PGID values using the id command. Let me know if there's anything else you'd like to add or modify!
+---
 
 ## qBitTorrent + Wireguard VPN
 
