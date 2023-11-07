@@ -10,6 +10,7 @@ PGID: Group ID of the application owner.
 TZ: Timezone of the server (e.g., Europe/Madrid).
 USERDIR: Path to the user's home directory.
 DOCKERDIR: Path to the Docker directory.
+DOWNLOADSDIR: Path to the Downloads directory.
 SECRETSDIR: Path to the Docker secrets directory.
 SERVER_IP: IP address of the server.
 DATADIR: Path to the main data directory.
