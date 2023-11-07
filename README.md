@@ -137,3 +137,32 @@ How to proceed:
    # Expand the filesystem itself
    foo@bar:~$ resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
    ```
+---
+
+## [*arrs Remote Path Mappings](https://trash-guides.info/Sonarr/Sonarr-remote-path-mapping/)
+
+According to any *arr and qbittorrent docker-compose:
+
+```yaml
+qbittorrentvpn:
+    ...
+    volumes:
+      - $DOWNLOADSDIR:/data
+    ...
+sonarr:
+    ...
+    volumes:
+      - $DOWNLOADSDIR:/downloads #optional
+    ...
+```
+
+Both use different folder names in order to download and access downloaded files. 
+
+This can be solved using Remote Path Mappings:
+- Proceed to *arr > Settings > Download Clients
+- Create a new Remote Path Mapping
+- Select downloader client from host dropdown
+- Add the downloader client's folder in Remote path
+- Add the *arr folder in Local path
+
+---
