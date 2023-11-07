@@ -97,4 +97,39 @@ Then proceed to go to the desired indexer in Prowlarr > Indexers, edit (left-mos
 Access qbittorrent console:
 - `sudo docker exec -ti <qbittorrent> /bin/bash`
 - `curl ifconfig.io`
-- 
+
+## Proxmox
+
+### Change disk space
+Links:
+- https://pve.proxmox.com/wiki/Resize_disks
+- https://community.spiceworks.com/topic/2325763-how-can-i-make-ubuntu-vg-ubuntu-lv-consume-the-entire-disk-space-available
+
+How to proceed:
+1. Resizing guest disk using gui
+    - Select your VM from the list > Hardware > Hard Disk > Disk Action > Resize.
+2. Enlarge the partition(s) in the virtual disk 
+    - `dmesg | grep sda`
+    - `fdisk -l /dev/sda | grep ^/dev`
+        ```bash
+        parted /dev/vda
+        (parted) print
+        Warning: Not all of the space available to /dev/vda appears to be used, you can
+        fix the GPT to use all of the space (an extra 268435456 blocks) or continue
+        with the current setting? 
+        Fix/Ignore? F 
+        
+        (parted) resizepart 3 100%
+        (parted) quit
+        ```
+3. Enlarge the filesystem(s) in the partitions on the virtual disk
+   ```bash
+   # Increase the Physical Volume (pv) to max size
+   pvresize /dev/sda3
+    
+   # Expand the Logical Volume (LV) to max size to match
+   lvresize -l +100%FREE /dev/mapper/ubuntu--vg-ubuntu--lv
+    
+   # Expand the filesystem itself
+   resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
+   ```
