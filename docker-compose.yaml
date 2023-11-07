@@ -45,7 +45,7 @@ services:
     volumes:
       - $DOCKERDIR/lidarr:/config
       - $MUSICDIR:/music #optional
-      - $USERDIR/downloads:/downloads #optional
+      - $DOWNLOADSDIR:/downloads #optional
     ports:
       - 8686:8686
     restart: unless-stopped
@@ -71,7 +71,7 @@ services:
     volumes:
       - $DOCKERDIR/radarr:/config
       - $MOVIESDIR:/movies #optional
-      - $USERDIR/downloads:/downloads #optional
+      - $DOWNLOADSDIR:/downloads #optional
     ports:
       - 7878:7878
     restart: unless-stopped
@@ -85,7 +85,7 @@ services:
     volumes:
       - $DOCKERDIR/readarr:/config
       - $BOOKSDIR:/books #optional
-      - $USERDIR/downloads:/downloads #optional
+      - $DOWNLOADSDIR:/downloads #optional
     ports:
       - 8787:8787
     restart: unless-stopped
@@ -99,7 +99,7 @@ services:
     volumes:
       - $DOCKERDIR/sonarr:/config
       - $SERIESDIR:/tv #optional
-      - $USERDIR/downloads:/downloads #optional
+      - $DOWNLOADSDIR:/downloads #optional
     ports:
       - 8989:8989
     restart: unless-stopped
@@ -112,7 +112,7 @@ services:
       - $DOCKERDIR/homarr/icons:/app/public/icons
     ports:
       - 7575:7575
-  qbittorrent:
+  qbittorrentvpn:
     container_name: qbittorrentvpn
     image: binhex/arch-qbittorrentvpn
     ports:
@@ -131,14 +131,12 @@ services:
       - ENABLE_PRIVOXY=yes
       - VPN_PROV=custom
       - VPN_CLIENT=wireguard
-      - VPN_OPTIONS=<additional openvpn cli options> 
     volumes:
       - $DOCKERDIR/qbittorrent:/config
-      - $USERDIR/downloads:/data
+      - $DOWNLOADSDIR:/data
       - /etc/localtime:/etc/localtime:ro
     cap_add:
       - NET_ADMIN
-
     privileged: true
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1

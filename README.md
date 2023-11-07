@@ -1,5 +1,7 @@
 # GANTICH Homelab
 
+## .env Setup
+
 This project uses a .env file to manage environment variables. These variables are crucial for the proper functioning of the application. Please ensure that you set them correctly before running the application.
 
 Environment Variables:
@@ -98,6 +100,7 @@ Then proceed to go to the desired indexer in Prowlarr > Indexers, edit (left-mos
 Access qbittorrent console:
 - `sudo docker exec -ti <qbittorrent> /bin/bash`
 - `curl ifconfig.io`
+---
 
 ## Proxmox
 

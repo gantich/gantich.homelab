@@ -11,7 +11,7 @@ services:
     volumes:
       - $DOCKERDIR/radarr:/config
       - $MOVIESDIR:/movies #optional
-      - $USERDIR/downloads:/downloads #optional
+      - $DOWNLOADSDIR:/downloads #optional
     ports:
       - 7878:7878
     restart: unless-stopped

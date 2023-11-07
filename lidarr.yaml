@@ -11,7 +11,7 @@ services:
     volumes:
       - $DOCKERDIR/lidarr:/config
       - $MUSICDIR:/music #optional
-      - $USERDIR/downloads:/downloads #optional
+      - $DOWNLOADSDIR:/downloads #optional
     ports:
       - 8686:8686
     restart: unless-stopped

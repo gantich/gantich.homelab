@@ -11,7 +11,7 @@ services:
     volumes:
       - $DOCKERDIR/sonarr:/config
       - $SERIESDIR:/tv #optional
-      - $USERDIR/downloads:/downloads #optional
+      - $DOWNLOADSDIR:/downloads #optional
     ports:
       - 8989:8989
     restart: unless-stopped
