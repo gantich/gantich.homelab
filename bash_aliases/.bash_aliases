@@ -30,3 +30,6 @@ alias scp='scp -c blowfish'
 alias nano='sudo nano -iSw$'
 alias cp='cp --verbose'
 alias mv='mv --verbose'
+
+# Please
+alias please='sudo $(history -p !!)'
