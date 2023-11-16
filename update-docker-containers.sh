@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Download the latest docker-compose.yml from GitHub
-curl -O https://raw.githubusercontent.com/your-username/your-repo/master/docker-compose.yml
+curl -O https://raw.githubusercontent.com/gantich/gantich.homelab/master/docker-compose.yaml
 
 # Stop and remove all running containers
 docker stop $(docker ps -aq)
