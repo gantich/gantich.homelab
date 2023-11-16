@@ -36,21 +36,21 @@ EOT
 
 header
 
-echo "${BOLD_MAGENTA}Download the latest docker-compose.yml from GitHub${RESET}"
+echo -e "${BOLD_MAGENTA}Download the latest docker-compose.yml from GitHub${RESET}"
 curl -O https://raw.githubusercontent.com/gantich/gantich.homelab/master/docker-compose.yaml
 
 if [ "$(docker ps -aq)" ]; then
-    echo "${BOLD_MAGENTA}Stop all running containers${RESET}"
+    echo -e "${BOLD_MAGENTA}Stop all running containers${RESET}"
     docker stop $(docker ps -aq)
 
-    echo "${BOLD_MAGENTA}Remove all containers${RESET}"
+    echo -e "${BOLD_MAGENTA}Remove all containers${RESET}"
     docker rm $(docker ps -aq)
 else
-    echo "${BOLD_MAGENTA}No running containers to stop.${RESET}"
+    echo -e "${BOLD_MAGENTA}No running containers to stop.${RESET}"
 fi
 
-echo "${BOLD_MAGENTA}Pull the latest images for all containers${RESET}"
+echo -e "${BOLD_MAGENTA}Pull the latest images for all containers${RESET}"
 docker compose pull
 
-echo "${BOLD_MAGENTA}Recreate and start all containers${RESET}"
+echo -e "${BOLD_MAGENTA}Recreate and start all containers${RESET}"
 docker compose up -d
