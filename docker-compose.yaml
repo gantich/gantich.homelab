@@ -109,10 +109,11 @@ services:
     restart: unless-stopped
     volumes:
       - $DOCKERDIR/homarr:/app/data/configs
+      - $DOCKERDIR/homarr/data:/data
       - $DOCKERDIR/homarr/icons:/app/public/icons
     ports:
-      - 7575:7575
-  qbittorrentvpn:
+      - 80:7575
+  qbittorrent:
     container_name: qbittorrentvpn
     image: binhex/arch-qbittorrentvpn
     ports:
@@ -141,3 +142,38 @@ services:
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
       - net.ipv6.conf.all.disable_ipv6=1
+  jellyseerr:
+     image: fallenbagel/jellyseerr:latest
+     container_name: jellyseerr
+     environment:
+      - LOG_LEVEL=debug
+      - TZ=$TZ
+     ports:
+      - 5055:5055
+     volumes:
+      - $DOCKERDIR/jellyseer:/app/config
+     restart: unless-stopped
+  kavita:
+    image: lscr.io/linuxserver/kavita:latest
+    container_name: kavita
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+    volumes:
+      - $DOCKERDIR/kavita:/config
+      - $BOOKSDIR:/data
+    ports:
+      - 5000:5000
+    restart: unless-stopped
+  logseq:
+    container_name: logseq
+    ports:
+      - 8083:80
+    image: ghcr.io/logseq/logseq-webapp:latest
+    restart: unless-stopped
+  watchtower:
+    container_name: watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    image: containrrr/watchtower
