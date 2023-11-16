@@ -1,7 +1,9 @@
 ---
 version: "2.1"
+volumes:
+    portainer_data: {}
 services:
-  portainer-ce:
+  portainer:
     image: portainer/portainer-ce:latest
     container_name: portainer
     ports:
