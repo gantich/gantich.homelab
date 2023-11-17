@@ -4,22 +4,22 @@ volumes:
     portainer_data: {}
 services:
   portainer:
-    image: portainer/portainer-ce:latest
     container_name: portainer
+    image: portainer/portainer-ce:latest
     ports:
       - 8000:8000
       - 9443:9443
+    restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
-    restart: always
   bazarr:
-    image: lscr.io/linuxserver/bazarr:latest
     container_name: bazarr
     environment:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
+    image: lscr.io/linuxserver/bazarr:latest
     volumes:
       - $DOCKERDIR/bazarr:/config
       - $MOVIESDIR:/movies #optional
@@ -28,111 +28,108 @@ services:
       - 6767:6767
     restart: unless-stopped
   jellyfin:
-    image: lscr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
+    devices:
+      - /dev/dri:/dev/dri # for harware transcoding
     environment:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
       - JELLYFIN_PublishedServerUrl=$SERVER_IP #optional
-    volumes:
-      - $DOCKERDIR/jellyfin:/config
-      - $SERIESDIR:/data/tvshows
-      - $MOVIESDIR:/data/movies
+    image: lscr.io/linuxserver/jellyfin:latest
     ports:
       - 8096:8096
       - 8920:8920 #optional
       - 7359:7359/udp #optional
       - 1900:1900/udp #optional
-    devices:
-      - /dev/dri:/dev/dri # for harware transcoding
     restart: unless-stopped
+    volumes:
+      - $DOCKERDIR/jellyfin:/config
+      - $SERIESDIR:/data/tvshows
+      - $MOVIESDIR:/data/movies
   lidarr:
-    image: lscr.io/linuxserver/lidarr:latest
     container_name: lidarr
     environment:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
+    image: lscr.io/linuxserver/lidarr:latest
+    ports:
+      - 8686:8686
+    restart: unless-stopped
     volumes:
       - $DOCKERDIR/lidarr:/config
       - $MUSICDIR:/music #optional
       - $DOWNLOADSDIR:/downloads #optional
-    ports:
-      - 8686:8686
-    restart: unless-stopped
   prowlarr:
-    image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
     environment:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
-    volumes:
-      - $DOCKERDIR/prowlarr:/config
+    image: lscr.io/linuxserver/prowlarr:latest
     ports:
       - 9696:9696
     restart: unless-stopped
+    volumes:
+      - $DOCKERDIR/prowlarr:/config
   radarr:
-    image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
     environment:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
+    image: lscr.io/linuxserver/radarr:latest
+    ports:
+      - 7878:7878
+    restart: unless-stopped
     volumes:
       - $DOCKERDIR/radarr:/config
       - $MOVIESDIR:/movies #optional
       - $DOWNLOADSDIR:/downloads #optional
-    ports:
-      - 7878:7878
-    restart: unless-stopped
   readarr:
-    image: lscr.io/linuxserver/readarr:develop
     container_name: readarr
     environment:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
+    image: lscr.io/linuxserver/readarr:develop
+    ports:
+      - 8787:8787
+    restart: unless-stopped
     volumes:
       - $DOCKERDIR/readarr:/config
       - $BOOKSDIR:/books #optional
       - $DOWNLOADSDIR:/downloads #optional
-    ports:
-      - 8787:8787
-    restart: unless-stopped
   sonarr:
-    image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
     environment:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
+    image: lscr.io/linuxserver/sonarr:latest
+    ports:
+      - 8989:8989
+    restart: unless-stopped
     volumes:
       - $DOCKERDIR/sonarr:/config
       - $SERIESDIR:/tv #optional
       - $DOWNLOADSDIR:/downloads #optional
-    ports:
-      - 8989:8989
-    restart: unless-stopped
   homarr:
-    container_name: homarr
     image: ghcr.io/ajnart/homarr:latest
+    container_name: homarr
+    ports:
+      - 80:7575
     restart: unless-stopped
     volumes:
       - $DOCKERDIR/homarr:/app/data/configs
       - $DOCKERDIR/homarr/data:/data
       - $DOCKERDIR/homarr/icons:/app/public/icons
-    ports:
-      - 80:7575
   qbittorrent:
+    cap_add:
+      - NET_ADMIN
     container_name: qbittorrentvpn
     image: binhex/arch-qbittorrentvpn
-    ports:
-      - 8080:8080
-      - 8118:8118
-      - 6881:6881
-      - 6881:6881/udp
     environment:
       - PUID=$PUID
       - PGID=$PGID
@@ -144,48 +141,52 @@ services:
       - ENABLE_PRIVOXY=yes
       - VPN_PROV=custom
       - VPN_CLIENT=wireguard
+    ports:
+      - 8080:8080
+      - 8118:8118
+      - 6881:6881
+      - 6881:6881/udp
+    privileged: true
+    restart: unless-stopped
+    sysctls:
     volumes:
       - $DOCKERDIR/qbittorrent:/config
       - $DOWNLOADSDIR:/data
       - /etc/localtime:/etc/localtime:ro
-    cap_add:
-      - NET_ADMIN
-    privileged: true
-    sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
       - net.ipv6.conf.all.disable_ipv6=1
   jellyseerr:
-     image: fallenbagel/jellyseerr:latest
      container_name: jellyseerr
      environment:
       - LOG_LEVEL=debug
       - TZ=$TZ
+     image: fallenbagel/jellyseerr:latest
      ports:
       - 5055:5055
+     restart: unless-stopped
      volumes:
       - $DOCKERDIR/jellyseer:/app/config
-     restart: unless-stopped
   kavita:
-    image: lscr.io/linuxserver/kavita:latest
     container_name: kavita
     environment:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
-    volumes:
-      - $DOCKERDIR/kavita:/config
-      - $BOOKSDIR:/data
+    image: lscr.io/linuxserver/kavita:latest
     ports:
       - 5000:5000
     restart: unless-stopped
+    volumes:
+      - $DOCKERDIR/kavita:/config
+      - $BOOKSDIR:/data
   logseq:
     container_name: logseq
+    image: ghcr.io/logseq/logseq-webapp:latest
     ports:
       - 8083:80
-    image: ghcr.io/logseq/logseq-webapp:latest
     restart: unless-stopped
   watchtower:
     container_name: watchtower
+    image: containrrr/watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    image: containrrr/watchtower
