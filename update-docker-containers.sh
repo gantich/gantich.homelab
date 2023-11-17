@@ -66,4 +66,4 @@ echo "${BOLD_MAGENTA}Recreate and start all containers${RESET}"
 docker compose up -d
 
 echo "${BOLD_MAGENTA}Prune all old images${RESET}"
-docker image prune
+docker image prune -f
