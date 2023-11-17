@@ -22,6 +22,7 @@ BOLD_MAGENTA="${BOLD}${MAGENTA}"
 BOLD_CYAN="${BOLD}${CYAN}"
 BOLD_WHITE="${BOLD}${WHITE}"
 BOLD_GRAY="${BOLD}${GRAY}"
+
 printf "\n"
 printf "                     ${RED} ##       ${GRAY} .         \n"
 printf "               ${RED} ## ## ##      ${GRAY} ==         \n"
