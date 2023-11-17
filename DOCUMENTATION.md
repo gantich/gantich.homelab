@@ -60,7 +60,44 @@
     sudo make install
     ```
 
+## Proxmox iGPU Passthrough for Jellyfin
 
+Documented from [here](https://forum.proxmox.com/threads/task-error-cannot-prepare-pci-pass-through-iommu-not-present-gpu-passthrough.107102/page-2#post-582422)
+
+This asumes you have a VT-x (Intel virtualization) compatible CPU, that it is enabled in the BIOS and you are using grub as your boot loader.
+
+1. The kernel commandline needs to be placed in the variable `GRUB_CMDLINE_LINUX_DEFAULT` in the file `/etc/default/grub`. 
+
+    ```grub
+    GRUB_DEFAULT=0
+    GRUB_TIMEOUT=5
+    GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`
+    GRUB_CMDLINE_LINUS_DEFAULT="quiet intel_iommu=on iommu=pt"
+    GRUB_CMDLINE_LINUX=""
+    ```
+
+2. Running`update-gru` appends its content to all linux entries in `/boot/grub/grub.cf`.
+
+3. The kernel commandline needs to be placed as one line in`/etc/kernel/cmdline`. 
+
+    ```
+    intel_iommu=on iommu=pt
+    ```
+    
+4. To apply your changes, run `proxmox-boot-tool refres`, which sets it as the option line for all config files in `loader/entries/proxmox-*.conf`
+
+5. To check if it worked run:
+
+    ```sh
+    foo@bar:~$ cat /proc/cmdline
+    BOOT_IMAGE=/boot/vmlinuz-6.2.16-15-pve root=/dev/mapper/pve-root ro quiet intel_iommu=on iommu=pt
+    ```
+
+    and/or 
+
+    ```sh
+    dmesg | grep -e DMAR -e IOMMU
+    ```
 
 
 
