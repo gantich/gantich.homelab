@@ -187,8 +187,3 @@ services:
     ports:
       - 8083:80
     restart: unless-stopped
-  # watchtower:
-  #   container_name: watchtower
-  #   image: containrrr/watchtower
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock
