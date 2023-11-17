@@ -155,7 +155,6 @@ services:
       - $DOCKERDIR/qbittorrent:/config
       - $DOWNLOADSDIR:/data
       - /etc/localtime:/etc/localtime:ro
-      
   jellyseerr:
      container_name: jellyseerr
      environment:
