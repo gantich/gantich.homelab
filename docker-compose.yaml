@@ -30,12 +30,14 @@ services:
   jellyfin:
     container_name: jellyfin
     devices:
-      - /dev/dri:/dev/dri # for harware transcoding
+      - /dev/dri/renderD128:/dev/dri/renderD128
     environment:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
       - JELLYFIN_PublishedServerUrl=$SERVER_IP #optional
+    group_add:
+      - "109" # Change this to match your "render" host group id and remove this comment
     image: lscr.io/linuxserver/jellyfin:latest
     ports:
       - 8096:8096
