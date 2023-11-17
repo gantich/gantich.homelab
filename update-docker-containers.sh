@@ -23,6 +23,22 @@ BOLD_CYAN="${BOLD}${CYAN}"
 BOLD_WHITE="${BOLD}${WHITE}"
 BOLD_GRAY="${BOLD}${GRAY}"
 
+printf "                   ${RED} ##       ${GREY} .         \n"
+printf "             ${RED} ## ## ##      ${GREY} ==         \n"
+printf "           ${RED}## ## ## ##      ${GREY}===         \n"
+printf "       /\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\\\___/ ===       \n"
+printf "  ${BLUE}~~~ ${GREY}{${BLUE}~~ ~~~~ ~~~ ~~~~ ~~ ~ ${GREY}/  ===- ${BLUE}~~~${GREY}\n"
+printf "       \\\______${WHITE} o ${GREY}         __/           \n"
+printf "         \\\    \\\        __/            \n"
+printf "          \\\____\\\______/               \n"
+printf " ${RESET}                                         \n"
+printf "    __  __          __      __                   \n"
+printf "   / / / /___  ____/ /___ _/ /____  _____        \n"
+printf "  / / / / __ \/ __  / __ \`/ __/ _ \\\/ ___/        \n"
+printf " / /_/ / /_/ / /_/ / /_/ / /_/  __/ /            \n"
+printf " \\\____/ .___/\\\__,_/\\\__,_/\\\__/\\\___/_/             \n"
+printf "     /_/ \n"
+   
 header() {
 cat<<"EOT"
 
