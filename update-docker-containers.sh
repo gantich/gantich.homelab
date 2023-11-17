@@ -31,36 +31,19 @@ printf "  ${BLUE}~~~ ${GREY}{${BLUE}~~ ~~~~ ~~~ ~~~~ ~~ ~ ${GREY}/  ===- ${BLUE}
 printf "       \\\______${WHITE} o ${GREY}         __/           \n"
 printf "         \\\    \\\        __/            \n"
 printf "          \\\____\\\______/               \n"
-printf " ${RESET}                                         \n"
-printf "    __  __          __      __                   \n"
-printf "   / / / /___  ____/ /___ _/ /____  _____        \n"
-printf "  / / / / __ \/ __  / __ \`/ __/ _ \\\/ ___/        \n"
-printf " / /_/ / /_/ / /_/ / /_/ / /_/  __/ /            \n"
-printf " \\\____/ .___/\\\__,_/\\\__,_/\\\__/\\\___/_/             \n"
-printf "     /_/ \n"
-   
-header() {
-cat<<"EOT"
-
-                ${RED}##         ${GRAY}.
-            ${RED}## ## ##        ${GRAY}==
-        ${RED}## ## ## ## ##    ${GRAY}===
-    /"""""""""""""""""\___/ ===
-${BLUE}~~~ ${GRAY}{${BLUE}~~ ~~~~ ~~~ ~~~~ ~~~ ~ ${GRAY}/  ===- ${BLUE}~~~
-    \______ ${WHITE}o${GRAY}           __/
-        \    \         __/
-        \____\_______/             
-   __  __          __      __                   
-  / / / /___  ____/ /___ _/ /____  _____        
- / / / / __ \/ __  / __ `/ __/ _ \/ ___/        
-/ /_/ / /_/ / /_/ / /_/ / /_/  __/ /            
-\____/ .___/\__,_/\__,_/\__/\___/_/             
-    /_/                                         
-
-EOT
-}
-
-header
+printf " ${BOLD_MAGENTA}                                         \n"
+printf "   ______            __        _                  \n"
+printf "  / ____/___  ____  / /_____ _(\_)___  ___  _____ \n"
+printf " / /   / __ \/ __ \/ __/ __ \`/ / __ \\\/ _ \\\/ ___/ \n"
+printf "/ /___/ /_/ / / / / /_/ /_/ / / / / /  __/ /      \n"
+printf "\____/\____/_/ /_/\__/\__,_/_/_/ /_/\___/_/       \n"
+printf "   __  __          __      __                     \n"
+printf "  / / / /___  ____/ /___ _/ /____  _____          \n"
+printf " / / / / __ \\\/ __  / __ \`/ __/ _ \/ ___/        \n"
+printf "/ /_/ / /_/ / /_/ / /_/ / /_/  __/ /              \n"
+printf "\\\____/ .___/\\\__,_/\\\__,_/\\\__/\\\___/_/               \n"
+printf "    /_/   \n"
+printf " ${RESET}                                         \n"      
 
 echo -e "${BOLD_MAGENTA}Download the latest docker-compose.yml from GitHub${RESET}"
 curl -O https://raw.githubusercontent.com/gantich/gantich.homelab/master/docker-compose.yaml
