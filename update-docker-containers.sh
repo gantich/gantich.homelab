@@ -46,21 +46,21 @@ printf "  \\\____/ .___/\\\__,_/\\\__,_/\\\__/\\\___/_/               \n"
 printf "      /_/   \n"
 printf "${RESET}                                         \n"      
 
-echo -e "${BOLD_MAGENTA}Download the latest docker-compose.yml from GitHub${RESET}"
+echo "${BOLD_MAGENTA}Download the latest docker-compose.yml from GitHub${RESET}"
 curl -O https://raw.githubusercontent.com/gantich/gantich.homelab/master/docker-compose.yaml
 
 if [ "$(docker ps -aq)" ]; then
-    echo -e "${BOLD_MAGENTA}Stop all running containers${RESET}"
+    echo "${BOLD_MAGENTA}Stop all running containers${RESET}"
     docker stop $(docker ps -aq)
 
-    echo -e "${BOLD_MAGENTA}Remove all containers${RESET}"
+    echo "${BOLD_MAGENTA}Remove all containers${RESET}"
     docker rm $(docker ps -aq)
 else
-    echo -e "${BOLD_MAGENTA}No running containers to stop.${RESET}"
+    echo "${BOLD_MAGENTA}No running containers to stop.${RESET}"
 fi
 
-echo -e "${BOLD_MAGENTA}Pull the latest images for all containers${RESET}"
+echo "${BOLD_MAGENTA}Pull the latest images for all containers${RESET}"
 docker compose pull
 
-echo -e "${BOLD_MAGENTA}Recreate and start all containers${RESET}"
+echo "${BOLD_MAGENTA}Recreate and start all containers${RESET}"
 docker compose up -d
