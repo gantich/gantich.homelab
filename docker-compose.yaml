@@ -149,12 +149,13 @@ services:
     privileged: true
     restart: unless-stopped
     sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+      - net.ipv6.conf.all.disable_ipv6=1
     volumes:
       - $DOCKERDIR/qbittorrent:/config
       - $DOWNLOADSDIR:/data
       - /etc/localtime:/etc/localtime:ro
-      - net.ipv4.conf.all.src_valid_mark=1
-      - net.ipv6.conf.all.disable_ipv6=1
+      
   jellyseerr:
      container_name: jellyseerr
      environment:
