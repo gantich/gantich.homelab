@@ -46,8 +46,12 @@ printf "  \\\____/ .___/\\\__,_/\\\__,_/\\\__/\\\___/_/               \n"
 printf "      /_/   \n"
 printf "${RESET}                                         \n"      
 
-echo "${BOLD_MAGENTA}Download the latest docker-compose.yml from GitHub${RESET}"
-curl -O https://raw.githubusercontent.com/gantich/gantich.homelab/master/docker-compose.yaml
+
+echo "${BOLD_MAGENTA}Pull from GitHub${RESET}"
+git pull origin master
+
+# echo "${BOLD_MAGENTA}Download the latest docker-compose.yml from GitHub${RESET}"
+# curl -O https://raw.githubusercontent.com/gantich/gantich.homelab/master/docker-compose.yaml
 
 if [ "$(docker ps -aq)" ]; then
     echo "${BOLD_MAGENTA}Stop all running containers${RESET}"
