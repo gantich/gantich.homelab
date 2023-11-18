@@ -226,7 +226,7 @@ services:
     privileged: true
     restart: unless-stopped
     volumes:
-      - DOWNLOADSDIR:/data
+      - $DOWNLOADSDIR:/data
       - $DOCKERDIR/deluge/config:/config
       - /etc/localtime:/etc/localtime:ro
     sysctls:
