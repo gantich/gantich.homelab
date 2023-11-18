@@ -206,3 +206,29 @@ services:
     volumes:
       - $DOCKERDIR/diun:/data
       - /var/run/docker.sock:/var/run/docker.sock
+  delugevpn:
+    container_name: delugevpn
+    image: binhex/arch-delugevpn
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - UMASK=002
+      - TZ=$TZ
+      - VPN_ENABLED=yes
+      - LAN_NETWORK=192.168.0.0/24
+      - ENABLE_PRIVOXY=yes
+      - VPN_PROV=custom
+      - VPN_CLIENT=wireguard
+    ports:
+      - 8112:8112
+      - 58846:58846
+      - 58946:58946
+    privileged: true
+    restart: unless-stopped
+    volumes:
+      - DOWNLOADSDIR:/data
+      - $DOCKERDIR/deluge/config:/config
+      - /etc/localtime:/etc/localtime:ro
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+      - net.ipv6.conf.all.disable_ipv6=1
