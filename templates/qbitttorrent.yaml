@@ -1,13 +1,10 @@
 version: "2.1"
 services:
-  qbittorrentvpn:
+  qbittorrent:
+    cap_add:
+      - NET_ADMIN
     container_name: qbittorrentvpn
     image: binhex/arch-qbittorrentvpn
-    ports:
-      - 8080:8080
-      - 8118:8118
-      - 6881:6881
-      - 6881:6881/udp
     environment:
       - PUID=$PUID
       - PGID=$PGID
@@ -19,13 +16,17 @@ services:
       - ENABLE_PRIVOXY=yes
       - VPN_PROV=custom
       - VPN_CLIENT=wireguard
+    ports:
+      - 8080:8080
+      - 8118:8118
+      - 6881:6881
+      - 6881:6881/udp
+    privileged: true
+    restart: unless-stopped
     volumes:
       - $DOCKERDIR/qbittorrent:/config
       - $DOWNLOADSDIR:/data
       - /etc/localtime:/etc/localtime:ro
-    cap_add:
-      - NET_ADMIN
-    privileged: true
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
       - net.ipv6.conf.all.disable_ipv6=1

@@ -1,13 +1,12 @@
----
 version: "2.1"
 services:
   bazarr:
-    image: lscr.io/linuxserver/bazarr:latest
     container_name: bazarr
     environment:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
+    image: lscr.io/linuxserver/bazarr:latest
     volumes:
       - $DOCKERDIR/bazarr:/config
       - $MOVIESDIR:/movies #optional
