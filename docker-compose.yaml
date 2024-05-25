@@ -193,3 +193,9 @@ services:
     volumes:
       - $DOCKERDIR/kavita:/config
       - $BOOKSDIR:/data
+  it-tools:
+    container_name: it-tools
+    image: 'corentinth/it-tools:latest'
+    ports:
+        - '8080:80'
+    restart: unless-stopped
