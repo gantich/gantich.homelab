@@ -173,7 +173,7 @@ services:
     ports:
       - "5555:80"
     volumes:
-      - ./_timetagger:/root/_timetagger
+      - $DOCKERDIR/timetagger:/root/_timetagger
     environment:
       - TIMETAGGER_BIND=0.0.0.0:80
       - TIMETAGGER_DATADIR=/root/_timetagger
