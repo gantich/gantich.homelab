@@ -7,8 +7,8 @@ services:
     container_name: portainer
     image: portainer/portainer-ce:latest
     ports:
-      - 8000:8000
-      - 9443:9443
+      - ${PORTAINER_PORT1}:8000
+      - ${PORTAINER_PORT2}:9443
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -25,7 +25,7 @@ services:
       - $MOVIESDIR:/movies #optional
       - $SERIESDIR:/tv #optional
     ports:
-      - 6767:6767
+      - ${BAZARR_PORT}:6767
     restart: unless-stopped
   jellyfin:
     container_name: jellyfin
@@ -40,10 +40,10 @@ services:
       - "109" # Change this to match your "render" host group id and remove this comment
     image: lscr.io/linuxserver/jellyfin:latest
     ports:
-      - 8096:8096
-      - 8920:8920 #optional
-      - 7359:7359/udp #optional
-      - 1900:1900/udp #optional
+      - ${JELLYFIN_PORT1}:8096
+      - ${JELLYFIN_PORT2}:8920 #optional
+      - ${JELLYFIN_PORT3}:7359/udp #optional
+      - ${JELLYFIN_PORT4}:1900/udp #optional
     restart: unless-stopped
     volumes:
       - $DOCKERDIR/jellyfin:/config
@@ -57,7 +57,7 @@ services:
       - TZ=$TZ
     image: lscr.io/linuxserver/lidarr:latest
     ports:
-      - 8686:8686
+      - ${LIDARR_PORT}:8686
     restart: unless-stopped
     volumes:
       - $DOCKERDIR/lidarr:/config
@@ -71,7 +71,7 @@ services:
       - TZ=$TZ
     image: lscr.io/linuxserver/prowlarr:latest
     ports:
-      - 9696:9696
+      - ${PROWLARR_PORT}:9696
     restart: unless-stopped
     volumes:
       - $DOCKERDIR/prowlarr:/config
@@ -83,7 +83,7 @@ services:
       - TZ=$TZ
     image: lscr.io/linuxserver/radarr:latest
     ports:
-      - 7878:7878
+      - ${RADARR_PORT}:7878
     restart: unless-stopped
     volumes:
       - $DOCKERDIR/radarr:/config
@@ -97,7 +97,7 @@ services:
       - TZ=$TZ
     image: lscr.io/linuxserver/readarr:develop
     ports:
-      - 8787:8787
+      - ${READARR_PORT}:8787
     restart: unless-stopped
     volumes:
       - $DOCKERDIR/readarr:/config
@@ -111,7 +111,7 @@ services:
       - TZ=$TZ
     image: lscr.io/linuxserver/sonarr:latest
     ports:
-      - 8989:8989
+      - ${SONARR_PORT}:8989
     restart: unless-stopped
     volumes:
       - $DOCKERDIR/sonarr:/config
@@ -121,7 +121,7 @@ services:
     image: ghcr.io/ajnart/homarr:latest
     container_name: homarr
     ports:
-      - 80:7575
+      - ${HOMARR_PORT}:7575
     restart: unless-stopped
     volumes:
       - $DOCKERDIR/homarr:/app/data/configs
@@ -144,10 +144,10 @@ services:
       - VPN_PROV=custom
       - VPN_CLIENT=wireguard
     ports:
-      - 8080:8080
-      - 8118:8118
-      - 6881:6881
-      - 6881:6881/udp
+      - ${QBITTORRENT_PORT1}:8080
+      - ${QBITTORRENT_PORT2}:8118
+      - ${QBITTORRENT_PORT3}:6881
+      - ${QBITTORRENT_PORT3}:6881/udp
     privileged: true
     restart: unless-stopped
     volumes:
@@ -164,7 +164,7 @@ services:
       - TZ=$TZ
      image: fallenbagel/jellyseerr:latest
      ports:
-      - 5055:5055
+      - ${JELLYSEERR_PORT}:5055
      restart: unless-stopped
      volumes:
       - $DOCKERDIR/jellyseer:/app/config
@@ -172,7 +172,7 @@ services:
     container_name: timetagger
     image: ghcr.io/almarklein/timetagger
     ports:
-      - "5555:80"
+      - ${TIMETAGGER_PORT}:80
     volumes:
       - $DOCKERDIR/timetagger:/root/_timetagger
     environment:
@@ -188,7 +188,7 @@ services:
       - TZ=$TZ
     image: lscr.io/linuxserver/kavita:latest
     ports:
-      - 5000:5000
+      - ${KAVITA_PORT}:5000
     restart: unless-stopped
     volumes:
       - $DOCKERDIR/kavita:/config
@@ -197,5 +197,5 @@ services:
     container_name: it-tools
     image: 'corentinth/it-tools:latest'
     ports:
-        - '8080:80'
+        - ${IT_TOOLS_PORT}:80
     restart: unless-stopped
