@@ -169,6 +169,7 @@ services:
      volumes:
       - $DOCKERDIR/jellyseer:/app/config
   timetagger:
+    container_name: timetagger
     image: ghcr.io/almarklein/timetagger
     ports:
       - "5555:80"
