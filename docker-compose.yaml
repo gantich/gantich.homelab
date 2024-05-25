@@ -168,6 +168,17 @@ services:
      restart: unless-stopped
      volumes:
       - $DOCKERDIR/jellyseer:/app/config
+  timetagger:
+    image: ghcr.io/almarklein/timetagger
+    ports:
+      - "5555:80"
+    volumes:
+      - ./_timetagger:/root/_timetagger
+    environment:
+      - TIMETAGGER_BIND=0.0.0.0:80
+      - TIMETAGGER_DATADIR=/root/_timetagger
+      - TIMETAGGER_LOG_LEVEL=info
+      - TIMETAGGER_CREDENTIALS=$TIMETAGGER_CREDENTIALS
   kavita:
     container_name: kavita
     environment:
@@ -187,48 +198,3 @@ services:
     ports:
       - 8083:80
     restart: unless-stopped
-  diun:
-    command: serve
-    container_name: diun
-    image: crazymax/diun:latest
-    environment:
-      - TZ=$TZ
-      - DIUN_WATCH_WORKERS=20
-      - DIUN_WATCH_SCHEDULE=0 */6 * * *
-      - DIUN_WATCH_JITTER=30s
-      - DIUN_PROVIDERS_DOCKER=true
-      - DIUN_NOTIF_TELEGRAM_TOKEN=$TELEGRAM_BOT_TOKEN
-      - DIUN_NOTIF_TELEGRAM_CHATIDS=$TELEGRAM_CHAT_IDS
-      - DIUN_NOTIF_TELEGRAM_TEMPLATEBODY="Docker tag {{ if .Entry.Image.HubLink }}[{{ .Entry.Image }}]({{ .Entry.Image.HubLink }}){{ else }}{{ .Entry.Image }}{{ end }} which you subscribed to through {{ .Entry.Provider }} provider has been {{ if (eq .Entry.Status "new") }}newly added{{ else }}updated{{ end }} on {{ escapeMarkdown .Meta.Hostname }}."
-    labels:
-      - "diun.enable=true"
-    restart: always
-    volumes:
-      - $DOCKERDIR/diun:/data
-      - /var/run/docker.sock:/var/run/docker.sock
-  delugevpn:
-    container_name: delugevpn
-    image: binhex/arch-delugevpn
-    environment:
-      - PUID=$PUID
-      - PGID=$PGID
-      - UMASK=002
-      - TZ=$TZ
-      - VPN_ENABLED=yes
-      - LAN_NETWORK=192.168.0.0/24
-      - ENABLE_PRIVOXY=yes
-      - VPN_PROV=custom
-      - VPN_CLIENT=wireguard
-    ports:
-      - 8112:8112
-      - 58846:58846
-      - 58946:58946
-    privileged: true
-    restart: unless-stopped
-    volumes:
-      - $DOWNLOADSDIR:/data
-      - $DOCKERDIR/deluge/config:/config
-      - /etc/localtime:/etc/localtime:ro
-    sysctls:
-      - net.ipv4.conf.all.src_valid_mark=1
-      - net.ipv6.conf.all.disable_ipv6=1
